@@ -27,12 +27,12 @@ Before you begin, ensure you have met the following requirements:
 
 ```shell
 git clone https://github.com/wiem2000/vhm-amorce.git
-
+```
 ### Front-End (Angular)
 1.Navigate to the front-end directory:
 
 ```shell
-cd project-name/frontend
+cd vhm-amorce/vhm-amorce-frontend
 
 ```
 
@@ -55,7 +55,7 @@ The front-end should now be accessible at http://localhost:4200/.
 1.Navigate to the back-end directory:
 
 ```shell
-cd project-name/backend
+cd vhm-amorce/vhm_amorce_backend
 ```
 
 2.Import the project into your preferred Java IDE (e.g., Spring Tool Suite).
@@ -64,19 +64,22 @@ cd project-name/backend
 
 or 
 
-
 1.Navigate to the back-end directory
+```shell
+cd vhm-amorce/vhm_amorce_backend
+```
 2.build the spribg boot project
 ```shell
+mvn package
 ```
 3.run the application 
 ```shell
+java -jar vhm_amorce_backend-0.0.1-SNAPSHOT.jar
 ```
-
 
 The backend should now be accessible at http://localhost:8080/
 
 ###Usage
-Front-End: Access the web application by opening a web browser and navigating to http://localhost:4200/. Log in using your credentials (if required) and explore the user-friendly interface to manage the application's features.
 
 Back-End: The Spring Boot back-end provides the necessary APIs for the front-end. It handles data storage and retrieval from the MySQL database.
+Front-End: Access the web application by opening a web browser and navigating to http://localhost:4200/ and explore the user-friendly interface to manage the application's features.
