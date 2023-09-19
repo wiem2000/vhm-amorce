@@ -82,5 +82,5 @@ The backend should now be accessible at http://localhost:8080/
 
 ###Usage
 
-1.Back-End: The Spring Boot back-end provides the necessary APIs for the front-end. It handles data storage and retrieval from the MySQL database.
-2.Front-End: Access the web application by opening a web browser and navigating to http://localhost:4200/ and explore the user-friendly interface to manage the application's features.
+- Back-End: The Spring Boot back-end provides the necessary APIs for the front-end. It handles data storage and retrieval from the MySQL database.
+- Front-End: Access the web application by opening a web browser and navigating to http://localhost:4200/ and explore the user-friendly interface to manage the application's features.
