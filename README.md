@@ -84,3 +84,11 @@ The backend should now be accessible at http://localhost:8080/
 
 - Back-End: The Spring Boot back-end provides the necessary APIs for the front-end. It handles data storage and retrieval from the MySQL database.
 - Front-End: Access the web application by opening a web browser and navigating to http://localhost:4200/ and explore the user-friendly interface to manage the application's features.
+
+### Demo
+
+
+https://github.com/wiem2000/vhm-amorce/assets/96753615/961796fd-a129-402e-a102-574b2556db6a
+
+
+
