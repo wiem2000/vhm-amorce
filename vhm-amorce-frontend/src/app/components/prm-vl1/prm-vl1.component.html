@@ -1,0 +1,217 @@
+<div class="container">
+  <hr>
+  <nav class="navbar navbar-expand-sm bg-light">
+
+    <div class="container-fluid">
+      <!-- Links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link">Liste des valeurs du paramètre: <b> {{prmTg?.prmTp?.prmSbClss?.prmClss?.prmFmly?.prmFmly_Nm}} > {{prmTg?.prmTp?.prmSbClss?.prmClss?.prmClssName}} > {{prmTg?.prmTp?.prmSbClss?.prmSbClss_Name}} > {{prmTg?.prmTp?.prmTpName}} > {{prmTg?.prmTg}}</b></a>
+        </li>
+
+      </ul>
+    </div>
+
+  </nav>
+  <hr>
+
+  <div class="d-flex">
+
+    <div class="ms-auto"><button type="button" class="btn btn-secondary position-relative" (click)="onAddFormModal()">
+        <i class="fa-solid fa-magnifying-glass"></i> Ajouter Valeur</button></div>
+  </div>
+
+  <div class="mt-4">
+
+    <table class="table table-hover">
+      <thead>
+        <tr scope="row">
+          <th scope="col">#</th>
+
+          <th scope="col">Valeur</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr scope="row" *ngFor="let vl of lstPrmVl">
+          <td scope="col">{{vl.id}}</td>
+
+          <td scope="col">{{vl.prmVl_Dta}}</td>
+          <td scope="col" style="width: 100px;">
+            <div class="row">
+              <a title="Modifier" class="col btn btn-success tooltips btn-sm" (click)="onEditFormModal(vl)"
+                style="margin-right: 2px;" data-toggle="tooltip" data-original-title="Edit"><i
+                  class="fas fa-pencil fa-1x"></i>
+              </a>
+              <a title="Supprimer" class=" col btn btn-info tooltips btn-sm" (click)="onDeleteFormModal(vl)"
+                data-toggle="tooltip" data-original-title="Delete"><i class="fas fa-times fa-1x"></i></a>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+
+<!--  Add or update Form Modal  -->
+<div class="modal fade" id="addUpdateformModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title align-center">Mettre a jour une valeur</h4>
+        <button type="button" class="close" data-dismiss="modal"
+          (click)="onDismiss('addUpdateformModal')">&times;</button>
+      </div>
+
+      <div class="container">
+        <form [formGroup]="form">
+
+
+          <div class="form-group mt-4">
+            <label for="prmTg">Parametre: </label>
+
+            <select class="form-select form-select-m mb-3 form-control" formControlName="prmTg"
+              [ngClass]="{'is-invalid':submitted && formModal['prmTg'].errors }">
+              <option [ngValue]="prmTg" disabled>{{prmTg?.prmTg}}</option>
+
+
+            </select>
+            <div *ngIf="submitted && formModal['prmTg'].errors" class="invalid-feedback">
+              <div *ngIf="formModal['prmTg'].errors?.['required']">Ce champs est obligatoire
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+
+          <div class="form-group mt-4">
+            <label for="prmSrvc">Service médical: </label>
+
+            
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox"  id="flexCheckDefault"  (ngModelChange)="onChangeAllPrmSrvc($event)" formControlName="prmAllSrvc" >
+            <label class="form-check-label" for="flexCheckDefault">
+              Tous les services
+            </label>
+          </div>
+
+            <select multiple class="form-select form-select-m mb-3 form-control" formControlName="prmSrvc"
+              [ngClass]="{'is-invalid':submitted && formModal['prmSrvc'].errors }" (ngModelChange)="onChangePrmSrvc($event)">
+              
+              <option  disabled > -----------------------------------------------------------</option>
+              <option *ngFor="let prmSrvc of lstPrmSrvc" [ngValue]="prmSrvc" [selected]="isSelectedPrmSrvc(prmSrvc)" [disabled]="form.value.prmAllSrvc==true">{{ prmSrvc.prmSrvc_Nm }}</option>
+              
+
+
+            </select>
+            <div   *ngIf="submitted && formModal['prmSrvc'].errors" class="invalid-feedback">
+              <div *ngIf="formModal['prmSrvc'].errors?.['required']">Ce champs est obligatoire
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+
+          <div class="form-group mt-4">
+            <label for="prmUsr">Utilisateurs: </label>
+            
+            <div class="form-check mt-2">
+              <input class="form-check-input" type="checkbox"  id="flexCheckDefault"   (ngModelChange)="onChangeAllPrmUsr($event)" formControlName="prmAllUsr" >
+              <label class="form-check-label" for="flexCheckDefault">
+                Tous les utilisateurs
+              </label>
+            </div>
+
+            <select multiple class="form-select form-select-m mb-3 form-control" formControlName="prmUsr"
+              [ngClass]="{'is-invalid':submitted && formModal['prmUsr'].errors }" >
+              
+              <option  disabled > -----------------------------------------------------------</option>
+              
+              <option *ngFor="let prmUsr of lstPrmUsrSrvc" [ngValue]="prmUsr" [selected]="isSelected(prmUsr)" [disabled]="form.value.prmAllUsr==true">{{ prmUsr.prmUsr_Vl}}</option>
+
+
+            </select>
+            <div *ngIf="submitted && formModal['prmUsr'].errors" class="invalid-feedback">
+              <div *ngIf="formModal['prmUsr'].errors?.['required']">Ce champs est obligatoire
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+
+
+
+          <div class="form-group mt-4">
+
+            <label for="prmVl_Dta">valeur : </label>
+            <input type="text" formControlName="prmVl_Dta" class="form-control"
+              [ngClass]="{'is-invalid':submitted && formModal['prmVl_Dta'].errors }">
+            <div *ngIf="submitted && formModal['prmVl_Dta'].errors" class="invalid-feedback">
+              <div *ngIf="formModal['prmVl_Dta'].errors?.['required']">Ce champs est obligatoire</div>
+
+
+            </div>
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="modal-footer mt-5">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+              (click)="onDismiss('addUpdateformModal')">Annuler</button>
+
+            <button type="submit" class="btn btn-primary" (click)="addUpdateObj()">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--  Delete Fom Modal -->
+<div class="modal fade" id="deleteFormModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Supprimer Valeur</h5>
+        <button type="button" (click)="onDismiss('deleteFormModal')" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Etes vous sure de vouloir supprimer la valeur <b> {{selectedObj?.prmVl_Dta}} </b> ?</p>
+        <div class="modal-footer">
+          <button type="button" (click)="onDismiss('deleteFormModal')" class="btn btn-secondary"
+            data-dismiss="modal">Annuler</button>
+          <button class="btn btn-danger" (click)="deleteObj(selectedObj!.id)" data-dismiss="modal">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

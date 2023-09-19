@@ -1,0 +1,177 @@
+<div class="container-fluid small">
+
+  <nav class="navbar navbar-expand-sm bg-light mt-4">
+
+    <div class="container-fluid">
+      <!-- Links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link"> <b>Tableau de bord / Agenda </b> </a>
+        </li>
+
+      </ul>
+    </div>
+
+  </nav>
+
+  <hr>
+
+  <div class="row mt-4">
+    <div class="col-md-2 ">
+
+      <nav class="navbar navbar-expand-sm bg-light ">
+
+        <div class="container-fluid">
+          <!-- Links -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link">Recherche avancée </a>
+            </li>
+
+          </ul>
+        </div>
+
+      </nav>
+      <hr>
+
+
+      <form [formGroup]="form">
+
+        <div class="form-group mt-2">
+          <select class="form-select form-select-m mb-3 form-control" formControlName="prmFmly"
+            (ngModelChange)="initSelect($event)">
+            <option [ngValue]="null" disabled> Choisir une Famille</option>
+            <option disabled> -------------------</option>
+            <option *ngFor="let prmFmly of lstPrmFmly" [ngValue]="prmFmly">{{ prmFmly.prmFmly_Nm }}</option>
+          </select>
+        </div>
+
+
+        <div class="form-group mt-2">
+          <select class="form-select form-select-m mb-3 form-control" formControlName="prmClss"
+            (ngModelChange)="initSelect($event)">
+
+            <option [ngValue]="null" disabled> Choisir une Classe</option>
+            <option disabled> ------------------</option>
+            <option *ngFor="let prmClss of lstPrmClss" [ngValue]="prmClss">{{ prmClss.prmClssName}}</option>
+
+          </select>
+        </div>
+        <div class="form-group mt-2">
+          <select class="form-select form-select-m mb-3 form-control" formControlName="prmSbClss"
+            (ngModelChange)="initSelect($event)">
+
+            <option [ngValue]="null" disabled> Choisir une Sous Classe</option>
+            <option disabled> ------------------</option>
+            <option *ngFor="let prmSbClss of lstPrmSbClss" [ngValue]="prmSbClss">{{ prmSbClss.prmSbClss_Name }}</option>
+
+          </select>
+        </div>
+        <div class="form-group mt-2">
+          <select class="form-select form-select-m mb-3 form-control" formControlName="prmTp"
+            (ngModelChange)="initSelect($event)">
+
+            <option [ngValue]="null" disabled> Choisir un Type</option>
+            <option disabled> ------------------</option>
+            <option *ngFor="let prmTp of lstPrmTp" [ngValue]="prmTp">{{ prmTp.prmTpName }}</option>
+
+          </select>
+        </div>
+        <div class="form-group mt-2">
+          <select class="form-select form-select-m mb-3 form-control" formControlName="prmTg"
+            (ngModelChange)="initSelect($event)">
+
+            <option [ngValue]="null" disabled> Choisir un Parametre</option>
+            <option disabled> ------------------</option>
+            <option *ngFor="let prmTg of lstPrmTg" [ngValue]="prmTg">{{ prmTg.prmTg }}</option>
+
+          </select>
+        </div>
+        <div class="form-group mt-2">
+          <select class="form-select form-select-m mb-3 form-control" formControlName="prmVl"
+            (ngModelChange)="initSelect($event)">
+
+            <option [ngValue]="null" disabled> Choisir une Valeur</option>
+            <option disabled> ------------------</option>
+            <option *ngFor="let prmVl of lstPrmVl" [ngValue]="prmVl">{{ prmVl.prmVl_Dta}}</option>
+
+          </select>
+        </div>
+
+
+      </form>
+
+
+
+
+    </div>
+    <div class="col">
+
+
+
+
+
+
+
+      <div class=" table-vertical-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="table-info">
+              <th *ngFor="let prmSrvc of lstPrmSrvc" scope="col"> {{prmSrvc.prmSrvc_Nm}}</th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td *ngFor="let prmSrvc of lstPrmSrvc">
+                <ng-container *ngFor="let prmVl of prmSrvc.lstPrmVl">
+
+
+            <tr>
+              <td>
+                <div class="card" routerLink="/vhm/prmVl/{{prmVl.prmTg.id}}">
+
+                  <div class="card-body">
+                    <b>Pramètre:</b> {{prmVl.prmTg.prmTg}}
+                    <br>
+                    <b>Valeur :</b> {{prmVl.prmVl_Dta}}
+                    <br>
+                    <div class="d-flex flex-wrap">
+                      <b> Classe : </b>
+                      <div class="prmClss "
+                        routerLink="/vhm/prmClss/{{prmVl.prmTg.prmTp.prmSbClss.prmClss.prmFmly.id}}"> {{
+                        prmVl.prmTg.prmTp.prmSbClss.prmClss.prmClssName }} </div> >
+                      <div class="prmClss" routerLink="/vhm/prmSbClss/{{prmVl.prmTg.prmTp.prmSbClss.prmClss.id}}"> {{
+                        prmVl.prmTg.prmTp.prmSbClss.prmSbClss_Name }} </div> >
+                      <div class="prmClss" routerLink="/vhm/prmTp/{{prmVl.prmTg.prmTp.prmSbClss.id}}">
+                        {{prmVl.prmTg.prmTp.prmTpName}} </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </td>
+            </tr>
+
+
+            </ng-container>
+
+
+
+            </td>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+</div>

@@ -1,0 +1,135 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav  id="sidebar" *ngIf="sidebarStreched==true"  class="col-md-5 col-lg-3 d-md-block bg-dark sidebar " style=" min-height: 100vh;">
+
+            <div class="row mt-4">
+                <div class="col"></div>
+
+                <div class="col-md-2"><a (click)="hideSideBar()" style="cursor: pointer;"><i class="fa-solid fa-bars fa-xl"></i></a></div>
+            </div>
+            <div class="position-sticky" style="margin-top: 50px;">
+              
+
+
+                <div id="fmly" style="margin-left: 10px;">
+                    <ul class="nav flex-column mt" *ngIf="lstPrmFmly">
+
+                        <li *ngFor="let f of lstPrmFmly"><a class="nav-link" routerLink="/vhm/prmClss/{{f.id}}" routerLinkActive="active-link"><i class="fa-solid fa-minus"
+                                    (click)="onClick('#fmly',f.id)" [id]="'#fmly'+f.id"></i> {{f.prmFmly_Nm}}</a>
+
+                            <div [id]="'clss'+f.id" style="margin-left: 20px;">
+                                <ul class="nav flex-column mt" >
+                                    <li *ngFor="let c of f.lstPrmClss" ><a class="nav-link" routerLink="/vhm/prmSbClss/{{c.id}}" routerLinkActive="active-link"><i class="fa-solid fa-plus"
+                                                (click)="onClick('#clss',c.id)" [id]="'#clss'+c.id"></i> Classe:
+                                            {{c.prmClssName}}</a>
+                                        <div [id]="'sbClss'+c.id" style="margin-left: 30px;  display: none">
+                                            <ul class="nav flex-column">
+                                                <li *ngFor="let sc of c.lstPrmSbClss" ><a class="nav-link" routerLink="/vhm/prmTp/{{sc.id}}" routerLinkActive="active-link"><i
+                                                            class="fa-solid fa-plus"
+                                                            (click)="onClick('#sbClss',sc.id)"
+                                                            [id]="'#sbClss'+sc.id"></i>
+                                                        Sous-Classe: {{sc.prmSbClss_Name}}</a>
+                                                    <div [id]="'tp'+sc.id" style="margin-left: 20px; display: none">
+                                                        <ul class="nav flex-column">
+                                                            <li *ngFor="let t of sc.lstPrmTp" ><a class="nav-link" routerLink="/vhm/prmTg/{{t.id}}" routerLinkActive="active-link"><i
+                                                                        class="fa-solid fa-plus"
+                                                                        (click)="onClick('#tp',t.id)"
+                                                                        [id]="'#tp'+t.id"></i>
+                                                                    Type: {{t.prmTpName}}</a>
+                                                                <div [id]="'tg'+t.id" style="margin-left: 20px; display: none">
+                                                                    <ul class="nav flex-column">
+                                                                        <li *ngFor="let p of t.lstPrmTg" ><a
+                                                                                class="nav-link" routerLink="/vhm/prmVl/{{p.id}}" routerLinkActive="active-link"><i
+                                                                                    class="fa-solid fa-plus"
+                                                                                    (click)="onClick('#tg',p.id)"
+                                                                                    [id]="'#tg'+p.id"></i>
+                                                                                Paramètre:
+                                                                                {{p.prmTg}}</a>
+                                                                            <div [id]="'vl'+p.id"
+                                                                                style="margin-left: 30px; display: none">
+                                                                                <ul class="nav flex-column">
+                                                                                    <li *ngFor="let v of p.lstPrmVl">
+                                                                                        <a><i
+                                                                                                class="fa-solid fa-minus"></i>
+                                                                                            Valeur: {{v.prmVl_Dta}}</a>
+
+
+                                                                                    </li>
+
+                                                                                </ul>
+                                                                            </div>
+
+
+
+                                                                        </li>
+
+                                                                    </ul>
+                                                                </div>
+
+
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+
+
+
+
+                        </li>
+
+                    </ul>
+
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+        </nav>
+
+        <nav  *ngIf="sidebarStreched==false" class="col-md-1 col-lg-1 d-md-block bg-dark sidebar " style=" min-height: 100vh;">
+
+            <div class="row mt-4">
+                <div class="col-md-2"></div>
+
+                <div class="col"><a (click)="hideSideBar()" style="cursor: pointer;"><i class="fa-solid fa-bars fa-xl"></i></a></div>
+            </div>
+           
+
+
+        </nav>
+      
+
+       
+        <main class="col ms-sm-auto  ">
+
+
+
+
+
+            <router-outlet>
+
+            </router-outlet>
+
+
+
+
+        </main>
+  
+    </div>
+</div>

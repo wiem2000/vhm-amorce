@@ -1,0 +1,15 @@
+
+.sidebar,a{
+    color: lightgray;
+}
+
+.sidebar a:hover  {
+    color: white;
+   
+}
+
+.active-link {
+    color:#87CEEB;
+  }
+
+  

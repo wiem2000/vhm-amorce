@@ -1,0 +1,174 @@
+<div class="container">
+    <hr>
+  <nav class="navbar navbar-expand-sm bg-light">
+  
+    <div class="container-fluid">
+      <!-- Links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link">Liste des types de la sous-classe: <b>{{prmSbClss?.prmClss?.prmFmly?.prmFmly_Nm}} > {{prmSbClss?.prmClss?.prmClssName}} > {{prmSbClss?.prmSbClss_Name}}</b></a>
+        </li>
+  
+      </ul>
+    </div>
+  
+  </nav>
+  <hr>
+  
+  <div class="d-flex">
+  
+    <div class="ms-auto"><button type="button" class="btn btn-secondary position-relative" (click)="onAddFormModal()"> <i
+          class="fa-solid fa-magnifying-glass"></i> Ajouter Type</button></div>
+  </div>
+  
+  <div class="mt-4">
+  
+    <table class="table table-hover">
+      <thead>
+        <tr scope="row">
+          <th scope="col">#</th>
+          <th scope="col">Ref</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr scope="row" *ngFor="let tp of lstPrmTp">
+          <td scope="col">{{tp.id}}</td>
+          <td>{{tp.tpRef}}</td>
+          <td scope="col">{{tp.prmTpName}}</td>
+          <td scope="col" style="width: 100px;">
+            <div class="row">
+              <a title="Modifier" class="col btn btn-success tooltips btn-sm" (click)="onEditFormModal(tp)"  style="margin-right: 2px;"
+                data-toggle="tooltip" data-original-title="Edit"><i class="fas fa-pencil fa-1x"></i>
+              </a>
+              <a title="Supprimer" class=" col btn btn-info tooltips btn-sm" (click)="onDeleteFormModal(tp)" data-toggle="tooltip"
+                data-original-title="Delete"><i class="fas fa-times fa-1x"></i></a>
+            </div>
+          </td>
+        </tr>
+  
+      </tbody>
+    </table>
+  
+  </div>
+  
+  </div>
+  
+  
+      <!--  Add or update Form Modal  -->
+      <div class="modal fade" id="addUpdateformModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+  
+                <div class="modal-header">
+                    <h4 class="modal-title align-center">Ajouter un type</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                        (click)="onDismiss('addUpdateformModal')">&times;</button>
+                </div>
+  
+                <div class="container">
+                    <form  [formGroup]="form">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mt-4">
+                                    <label for="prmSbClss">Sous-classe : </label>
+  
+                                    <select class="form-select form-select-m mb-3 form-control"
+                                         formControlName="prmSbClss"
+                                        [ngClass]="{'is-invalid':submitted && formModal['prmSbClss'].errors }">
+                                        <option [ngValue]="prmSbClss" disabled>{{prmSbClss?.prmSbClss_Name}}</option>
+                                        
+  
+                                    </select>
+                                    <div *ngIf="submitted && formModal['prmSbClss'].errors" class="invalid-feedback">
+                                        <div *ngIf="formModal['prmSbClss'].errors?.['required']">Ce champs est obligatoire
+                                        </div>
+  
+  
+                                    </div>
+  
+  
+                                </div>
+                            </div>
+                            <div class="col">
+                              
+  
+                            </div>
+                        </div>
+                      
+  
+  
+  
+                        <div class="form-group mt-4">
+  
+                            <label for="prmTpName">Nom Type : </label>
+                            <input type="text" formControlName="prmTpName" class="form-control"
+                                [ngClass]="{'is-invalid':submitted && formModal['prmTpName'].errors }">
+                            <div *ngIf="submitted && formModal['prmTpName'].errors" class="invalid-feedback">
+                                <div *ngIf="formModal['prmTpName'].errors?.['required']">Ce champs est obligatoire</div>
+  
+  
+                            </div>
+  
+                        </div>
+  
+                        
+                        <div class="form-group mt-4">
+  
+                          <label for="tpRef">Réf : </label>
+                          <input type="number" formControlName="tpRef" class="form-control"
+                              [ngClass]="{'is-invalid':submitted && formModal['tpRef'].errors }">
+                          <div *ngIf="submitted && formModal['tpRef'].errors" class="invalid-feedback">
+                              <div *ngIf="formModal['tpRef'].errors?.['required']">Ce champs est obligatoire</div>
+  
+  
+                          </div>
+  
+                      </div>
+  
+                     
+                       
+  
+  
+  
+  
+  
+  
+                        <div class="modal-footer mt-5">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                (click)="onDismiss('addUpdateformModal')">Annuler</button>
+  
+                            <button type="submit" class="btn btn-primary" (click)="addUpdateObj()">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+  
+    <!--  Delete Fom Modal -->
+    <div class="modal fade" id="deleteFormModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModelLabel">Supprimer Type</h5>
+                    <button type="button" (click)="onDismiss('deleteFormModal')" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Etes vous sure de vouloir supprimer le type<b> {{selectedObj?.prmTpName}} </b> ?</p>
+                    <div class="modal-footer">
+                        <button type="button" (click)="onDismiss('deleteFormModal')" class="btn btn-secondary"
+                            data-dismiss="modal">Annuler</button>
+                        <button  class="btn btn-danger" (click)="deleteObj(selectedObj!.id)"
+                            data-dismiss="modal">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
