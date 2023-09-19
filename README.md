@@ -20,7 +20,7 @@ Before you begin, ensure you have met the following requirements:
 - [MySQL](https://www.mysql.com/) database set up
 - [Java JDK](https://www.oracle.com/java/technologies/javase-downloads.html) 
 - [Spring Boot](https://spring.io/projects/spring-boot)
-- [Apache Maven]:  installed: The mvn command is used for dependency management and building the Spring Boot project.
+- [Apache Maven](https://maven.apache.org/):  installed: The mvn command is used for dependency management and building the Spring Boot project.
 
 ### Installation
 
